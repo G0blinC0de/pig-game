@@ -1,62 +1,105 @@
-function PlayerList() {
-    this.players = [];
-}
-
-function Player(playerId, turnTotal, gameTotal, active) {
-    this.playerId = playerId;
-    this.turnTotal = turnTotal;
-    this.gameTotal = gameTotal;
-    this.active = active;
-}
-
-PlayerList.prototype.addPlayer = function (player) {
-    this.players.push(player);
-};
-
-PlayerList.prototype.getActivePlayer = function () {
-    return this.players.find(player => player.active);
-};
-
-PlayerList.prototype.turnSwap = function () {
-    this.players.forEach(player => {
-        player.active = !player.active;
-    });
-};
-
-Player.prototype.rollDice = function () {
-    const roll = Math.floor(Math.random() * 6) + 1;
-    if (roll !== 1) {
-        this.turnTotal += roll;
-    } else {
-        this.turnTotal = 0;
-        players.turnSwap();
+// Player Class
+class Player {
+    constructor() {
+        this.score = 0;
+        this.currentScore = 0;
     }
-    return roll;
-};
 
-Player.prototype.hold = function () {
-    this.gameTotal += this.turnTotal;
-    this.turnTotal = 0;
-    players.turnSwap();
-};
+    reset() {
+        this.score = 0;
+        this.currentScore = 0;
+    }
 
-let players = new PlayerList();
-players.addPlayer(new Player(1, 0, 0, true));
-players.addPlayer(new Player(2, 0, 0, false));
+    // Other business logic methods...
+}
 
-// Event listeners for roll and hold buttons
-document.getElementById('rollButton').addEventListener('click', function () {
-    const activePlayer = players.getActivePlayer();
-    const roll = activePlayer.rollDice();
-    // Example of updating the UI directly
-    document.getElementById('currentRoll').textContent = 'Roll: ' + roll;
-    document.getElementById('player' + activePlayer.playerId + 'TurnTotal').textContent = 'Turn Total: ' + activePlayer.turnTotal;
+// Game Class
+class Game {
+    constructor() {
+        this.players = [new Player(), new Player()];
+        this.activePlayerIndex = 0;
+        this.playing = true;
+    }
+
+    start() {
+        this.players.forEach(player => player.reset());
+        this.activePlayerIndex = 0;
+        this.playing = true;
+    }
+
+    switchPlayer() {
+        this.activePlayerIndex = this.activePlayerIndex === 0 ? 1 : 0;
+        this.players[this.activePlayerIndex].currentScore = 0;
+    }
+
+    rollDice() {
+        if (!this.playing) return 0;
+
+        const dice = Math.trunc(Math.random() * 6) + 1;
+        if (dice !== 1) {
+            this.players[this.activePlayerIndex].currentScore += dice;
+        } else {
+            this.switchPlayer();
+        }
+        return dice;
+    }
+
+    hold() {
+        if (!this.playing) return;
+
+        const activePlayer = this.players[this.activePlayerIndex];
+        activePlayer.score += activePlayer.currentScore;
+        if (activePlayer.score >= 100) {
+            this.playing = false;
+        } else {
+            this.switchPlayer();
+        }
+    }
+
+    // Other business logic methods...
+}
+const player0El = document.querySelector('.player--0');
+const player1El = document.querySelector('.player--1');
+const score0El = document.querySelector('#score--0');
+const score1El = document.getElementById('score--1');
+const current0El = document.getElementById('current--0');
+const current1El = document.getElementById('current--1');
+const diceEl = document.querySelector('.dice');
+const btnNew = document.querySelector('.btn--new');
+const btnRoll = document.querySelector('.btn--roll');
+const btnHold = document.querySelector('.btn--hold');
+
+const game = new Game();
+
+function updateUI() {
+    score0El.textContent = game.players[0].score;
+    score1El.textContent = game.players[1].score;
+    current0El.textContent = game.players[0].currentScore;
+    current1El.textContent = game.players[1].currentScore;
+    player0El.classList.toggle('player--active', game.activePlayerIndex === 0);
+    player1El.classList.toggle('player--active', game.activePlayerIndex === 1);
+    diceEl.classList.toggle('hidden', !game.playing);
+}
+
+btnRoll.addEventListener('click', function () {
+    if (game.playing) {
+        const dice = game.rollDice();
+        diceEl.src = `images/dice-${dice}.png`;
+        updateUI();
+    }
 });
 
-document.getElementById('holdButton').addEventListener('click', function () {
-    const activePlayer = players.getActivePlayer();
-    activePlayer.hold();
-    // Update UI for holding
-    document.getElementById('player' + activePlayer.playerId + 'GameTotal').textContent = 'Game Total: ' + activePlayer.gameTotal;
-    // Optionally, update UI to reflect the turn swap
+btnHold.addEventListener('click', function () {
+    if (game.playing) {
+        game.hold();
+        updateUI();
+    }
 });
+
+btnNew.addEventListener('click', function () {
+    game.start();
+    updateUI();
+});
+
+game.start();
+updateUI();
