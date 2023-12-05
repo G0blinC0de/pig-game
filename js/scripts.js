@@ -60,4 +60,3 @@ document.getElementById('holdButton').addEventListener('click', function () {
     document.getElementById('player' + activePlayer.playerId + 'GameTotal').textContent = 'Game Total: ' + activePlayer.gameTotal;
     // Optionally, update UI to reflect the turn swap
 });
-
