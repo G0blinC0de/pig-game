@@ -62,6 +62,7 @@ btnHold.addEventListener('click', function () {
 
             // Finish the game
             playing = false;
+            gamesWon[activePlayer] += 1;
             diceEl.classList.add('hidden');
 
             document
