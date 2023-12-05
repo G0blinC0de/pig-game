@@ -1,105 +1,56 @@
-// Player Class
-class Player {
-    constructor() {
-        this.score = 0;
-        this.currentScore = 0;
-    }
-
-    reset() {
-        this.score = 0;
-        this.currentScore = 0;
-    }
-
-    // Other business logic methods...
+function Game(score, turnTotal, activePlayer, playing) {
+    this.score = score;
+    this.gamesWon = gamesWon
+    this.turnTotal = turnTotal;
+    this.activePlayer = activePlayer;
+    this.playing = playing;
 }
 
-// Game Class
-class Game {
-    constructor() {
-        this.players = [new Player(), new Player()];
-        this.activePlayerIndex = 0;
-        this.playing = true;
+let players = new Game([0, 0], [0, 0], 0, 0, false);
+
+Game.prototype.turnSwap = function () {
+    this.turnTotal = 0;
+    this.activePlayer = this.activePlayer === 0 ? 1 : 0;
+};
+
+Game.prototype.rollDice = function () {
+    const roll = Math.floor(Math.random() * 6) + 1;
+    if (roll === 1) {
+        this.turnTotal = 0;
+        this.turnSwap();
+    } else {
+        this.turnTotal += roll;
     }
+    return roll;
+};
 
-    start() {
-        this.players.forEach(player => player.reset());
-        this.activePlayerIndex = 0;
-        this.playing = true;
-    }
+Game.prototype.hold = function () {
+    this.score[this.activePlayer] += this.turnTotal;
+    this.turnTotal = 0;
+    players.turnSwap();
+};
 
-    switchPlayer() {
-        this.activePlayerIndex = this.activePlayerIndex === 0 ? 1 : 0;
-        this.players[this.activePlayerIndex].currentScore = 0;
-    }
+Game.prototype.gameWinCheck = function () {
+    if (this.score[this.activePlayer] >= 100)
+        this.playing = false;
 
-    rollDice() {
-        if (!this.playing) return 0;
-
-        const dice = Math.trunc(Math.random() * 6) + 1;
-        if (dice !== 1) {
-            this.players[this.activePlayerIndex].currentScore += dice;
-        } else {
-            this.switchPlayer();
-        }
-        return dice;
-    }
-
-    hold() {
-        if (!this.playing) return;
-
-        const activePlayer = this.players[this.activePlayerIndex];
-        activePlayer.score += activePlayer.currentScore;
-        if (activePlayer.score >= 100) {
-            this.playing = false;
-        } else {
-            this.switchPlayer();
-        }
-    }
-
-    // Other business logic methods...
-}
-const player0El = document.querySelector('.player--0');
-const player1El = document.querySelector('.player--1');
-const score0El = document.querySelector('#score--0');
-const score1El = document.getElementById('score--1');
-const current0El = document.getElementById('current--0');
-const current1El = document.getElementById('current--1');
-const diceEl = document.querySelector('.dice');
-const btnNew = document.querySelector('.btn--new');
-const btnRoll = document.querySelector('.btn--roll');
-const btnHold = document.querySelector('.btn--hold');
-
-const game = new Game();
-
-function updateUI() {
-    score0El.textContent = game.players[0].score;
-    score1El.textContent = game.players[1].score;
-    current0El.textContent = game.players[0].currentScore;
-    current1El.textContent = game.players[1].currentScore;
-    player0El.classList.toggle('player--active', game.activePlayerIndex === 0);
-    player1El.classList.toggle('player--active', game.activePlayerIndex === 1);
-    diceEl.classList.toggle('hidden', !game.playing);
 }
 
-btnRoll.addEventListener('click', function () {
-    if (game.playing) {
-        const dice = game.rollDice();
-        diceEl.src = `images/dice-${dice}.png`;
-        updateUI();
-    }
+
+// function turnUpdate(){
+//     const activePlayer = players.getActivePlayer();
+// } 
+
+// Event listeners for roll and hold buttons
+document.getElementById('rollButton').addEventListener('click', function () {
+    const activePlayer = players.getActivePlayer();
+    const roll = activePlayer.rollDice();
 });
 
-btnHold.addEventListener('click', function () {
-    if (game.playing) {
-        game.hold();
-        updateUI();
-    }
+document.getElementById('holdButton').addEventListener('click', function () {
+    const activePlayer = players.getActivePlayer();
+    activePlayer.hold();
+    // Update UI for holding
 });
 
-btnNew.addEventListener('click', function () {
-    game.start();
-    updateUI();
-});
 
-game.start();
-updateUI();
