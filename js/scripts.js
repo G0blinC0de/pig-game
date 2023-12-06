@@ -109,20 +109,34 @@ btnNew.addEventListener('click', function () {
 currentHeads = [0];
 currentTails = [0];
 
+document.addEventListener('DOMContentLoaded', () => {
+    const btnCoin = document.getElementById('btnCoin');
 
-btnCoin.addEventListener('click', function () {
-    coinToss = Math.trunc(Math.random() * 2) + 1;
-    if (coinToss === 1) {
-        flip("heads");
-        document.createElement
-    } else {
-        flip("tails");
-    }
+
+    btnCoin.addEventListener('click', function () {
+        const coinToss = Math.trunc(Math.random() * 2) + 1;
+        if (coinToss === 1) {
+            flip("heads");
+        } else {
+            flip("tails");
+        }
+    });
+
+    function flip(coin) {
+        const headsImage = document.getElementById('Heads');
+        const tailsImage = document.getElementById('Tails');
+        const resultText = document.getElementById("result");
+        resultText.textContent = coin; // Update text
+
+        if (coin === "heads") {
+            headsImage.classList.remove('hidden');
+            tailsImage.classList.add('hidden');
+        } else {
+            headsImage.classList.add('hidden');
+            tailsImage.classList.remove('hidden');
+        }
+    };
 });
-
-function flip(coin) {
-    document.getElementById("result").innerHTML = coin;
-};
 
 const callIt = function () {
 
