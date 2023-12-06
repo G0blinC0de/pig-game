@@ -106,13 +106,15 @@ btnNew.addEventListener('click', function () {
 
 // Coin Flip??
 
-let currentHeads, currentTails;
+currentHeads = [0];
+currentTails = [0];
 
 
 btnCoin.addEventListener('click', function () {
     coinToss = Math.trunc(Math.random() * 2) + 1;
     if (coinToss === 1) {
         flip("heads");
+        document.createElement
     } else {
         flip("tails");
     }

@@ -5,7 +5,7 @@
 
 body {
     height: 100vh;
-    display: flex;
+    display: block;
     justify-content: center;
     align-items: center;
 }
@@ -109,6 +109,19 @@ body {
 
 .btn--hold {
     top: 46.1rem;
+}
+
+.coinToss {
+    display: block;
+    flex-direction: column;
+    padding: 10px;
+    font-size: 25px;
+}
+
+.btnCoin {
+    font-size: 50px;
+    padding: 15px 30px;
+    border-radius: 10px;
 }
 
 .dice {
