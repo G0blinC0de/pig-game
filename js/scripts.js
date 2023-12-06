@@ -106,19 +106,22 @@ btnNew.addEventListener('click', function () {
 
 // Coin Flip??
 
-currentHeads = [0];
-currentTails = [0];
+currentCoinTotal = [0, 0];
 
 document.addEventListener('DOMContentLoaded', () => {
     const btnCoin = document.getElementById('btnCoin');
-
+    const coinReset = document.getElementById('btnCoinReset');
 
     btnCoin.addEventListener('click', function () {
         const coinToss = Math.trunc(Math.random() * 2) + 1;
         if (coinToss === 1) {
             flip("heads");
+            currentCoinTotal[0] += 1;
+            document.getElementById("totalHeads").innerText = currentCoinTotal[0];
         } else {
             flip("tails");
+            currentCoinTotal[1] += 1;
+            document.getElementById("totalTails").innerText = currentCoinTotal[1];
         }
     });
 
@@ -136,9 +139,13 @@ document.addEventListener('DOMContentLoaded', () => {
             tailsImage.classList.remove('hidden');
         }
     };
+    coinReset.addEventListener('click', function () {
+        currentCoinTotal = [0, 0]
+        document.getElementById("totalHeads").innerText = currentCoinTotal[0];
+        document.getElementById("totalTails").innerText = currentCoinTotal[1];
+        const headsImage = document.getElementById('Heads');
+        const tailsImage = document.getElementById('Tails');
+        headsImage.classList.add('hidden');
+        tailsImage.classList.add('hidden');
+    });
 });
-
-const callIt = function () {
-
-
-};
