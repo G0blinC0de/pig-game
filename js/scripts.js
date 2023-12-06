@@ -10,6 +10,7 @@ const diceEl = document.querySelector('.dice');
 const btnNew = document.querySelector('.btn--new');
 const btnRoll = document.querySelector('.btn--roll');
 const btnHold = document.querySelector('.btn--hold');
+const btnCoin = document.getElementById('btnCoin');
 
 let scores, currentScore, activePlayer, playing;
 
@@ -102,3 +103,26 @@ init();
 btnNew.addEventListener('click', function () {
     init();
 });
+
+// Coin Flip??
+
+let currentHeads, currentTails;
+
+
+btnCoin.addEventListener('click', function () {
+    coinToss = Math.trunc(Math.random() * 2) + 1;
+    if (coinToss === 1) {
+        flip("heads");
+    } else {
+        flip("tails");
+    }
+});
+
+function flip(coin) {
+    document.getElementById("result").innerHTML = coin;
+};
+
+const callIt = function () {
+
+
+};
