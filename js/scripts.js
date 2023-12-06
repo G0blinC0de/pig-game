@@ -1,7 +1,9 @@
-function Game(score, turnTotal, activePlayer) {
+
+function Game(score, turnTotal, activePlayer, roll) {
     this.score = score;
     this.turnTotal = turnTotal;
     this.activePlayer = activePlayer;
+    this.roll = roll;
 }
 
 Game.prototype.turnSwap = function () {
@@ -10,13 +12,12 @@ Game.prototype.turnSwap = function () {
 };
 
 Game.prototype.rollDice = function () {
-    const roll = Math.trunc(Math.random() * 6) + 1;
-    if (roll === 1) {
+    this.roll = Math.trunc(Math.random() * 6) + 1;
+    if (this.roll === 1) {
         this.turnSwap();
     } else {
-        this.turnTotal += roll;
+        this.turnTotal += this.roll;
     }
-    return roll;
 };
 
 Game.prototype.hold = function () {
@@ -32,9 +33,9 @@ Game.prototype.gameWinCheck = function () {
 };
 
 // UI logic
-let players = new Game([0, 0], 0, 0);
+let players = new Game([0, 0], 0, 0, 0);
 
-const diceEl = document.getElementById('diceImage');
+const diceImg = document.getElementById('diceImage');
 const btnNew = document.getElementById('newGameButton');
 const btnRoll = document.getElementById('rollButton');
 const btnHold = document.getElementById('holdButton');
@@ -46,38 +47,57 @@ const winButtonDisable = function () {
 }
 
 const scoreUpdate = function () {
-    document.getElementById('current--0').innerText = 0;
-    document.getElementById('current--1').innerText = 0;
-    document.getElementById('total--0').innerText = players.score[0];
-    document.getElementById('total--1').innerText = players.score[1];
-}
-
-const rollUpdate = function () {
-    players.rollDice();
     let activePlayer = players.activePlayer
     if (activePlayer === 0) {
         document.getElementById('current--0').innerText = players.turnTotal;
+        document.getElementById('total--0').innerText = players.score[0];
     } else {
         document.getElementById('current--1').innerText = players.turnTotal;
+        document.getElementById('total--1').innerText = players.score[1];
     }
 }
+
+const activePlayerUpdate = function () {
+    let activePlayer = players.activePlayer
+    if (activePlayer === 0) {
+        document.getElementById('current--0').innerText = players.turnTotal;
+        document.getElementById('p1Header').classList.add('active');
+        document.getElementById('p2Header').classList.remove('active');
+    } else {
+        document.getElementById('current--1').innerText = players.turnTotal;
+        document.getElementById('p2Header').classList.add('active');
+        document.getElementById('p1Header').classList.remove('active');
+    }
+};
 
 // Event listeners for new game, roll, and hold buttons
 btnNew.addEventListener('click', function () {
     btnRoll.disabled = false;
-    btnHold.disabled = false;
-    players.score = [0, 0]
+    btnHold.disabled = true;
+    players.score = [0, 0];
     scoreUpdate();
+    activePlayerUpdate();
 });
 
 btnRoll.addEventListener('click', function () {
-    rollUpdate();
+    players.rollDice();
+    scoreUpdate();
+    activePlayerUpdate();
+    const imgDiceResult = players.roll;
+    diceImg.src = `images/dice-${imgDiceResult}.png`;
+    let turnCheck = players.turnTotal;
+    if (turnCheck === 0) {
+        btnHold.disabled = true;
+    } else {
+        btnHold.disabled = false;
+    }
 });
 
 btnHold.addEventListener('click', function () {
     players.hold();
+    btnHold.disabled = true;
     scoreUpdate();
-    rollUpdate();
+    activePlayerUpdate();
 });
 
 // Coin Flip??
