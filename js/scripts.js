@@ -19,6 +19,7 @@ Game.prototype.rollDice = function () {
     this.roll = Math.trunc(Math.random() * 6) + 1;
     if (this.roll === 1) {
         this.turnSwap();
+        scoreBlank();
     } else {
         this.turnTotal += this.roll;
     }
