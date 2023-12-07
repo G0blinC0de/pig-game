@@ -1,26 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-US">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link rel="stylesheet" href="cs/styles.css" />
-    <title>Pig Game Design using JavaScript</title>
+    <title>Blank index.html page</title>
+    <link href="cs/styles.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
+
     <h1>Pig Dice Game</h1>
+    <img id='diceImage' src="images/dice-6.png" alt="Dice!">
 
     <div id="player1">
-        <h2>Player 1</h2>
+        <h2 id="p1Header">Player 1</h2>
         <p>Turn Total: <span id="current--0">0</span></p>
         <p>Game Total: <span id="total--0">0</span></p>
     </div>
 
     <div id="player2">
-        <h2>Player 2</h2>
+        <h2 id="p2Header">Player 2</h2>
         <p>Turn Total: <span id="current--1">0</span></p>
         <p>Game Total: <span id="total--1">0</span></p>
     </div>
@@ -28,6 +26,9 @@
     <button disabled="true" id="rollButton">Roll Dice</button>
     <button disabled="true" id="holdButton">Hold</button>
     <button id="newGameButton">New Game</button>
+    <p>Coded by: Red Williams & Amy Hruska</p>
+    <script src="js/scripts.js"></script>
+
 
     <div id="coinToss" class="coinToss">
         <button type="button" id="btnCoin" class="coinToss">Coin Toss</button>
