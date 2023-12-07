@@ -183,3 +183,44 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById("result").innerText = " ";
     });
 });
+
+// CONSULT THE WIZARD
+
+document.getElementById("ponderOrb").addEventListener("click", function () {
+    // Generate a random number between 0 and 7
+    let randomNumber = Math.floor(Math.random() * 8);
+
+    let message;
+    switch (randomNumber) {
+        case 0:
+            message = "Signs Point to Yes";
+            break;
+        case 1:
+            message = "Dark portents ahead";
+            break;
+        case 2:
+            message = "The Orb is cloudy, outcome uncertain";
+            break;
+        case 3:
+            message = "It is unlikely";
+            break;
+        case 4:
+            message = "Drink some water and take a nap";
+            break;
+        case 5:
+            message = "It is possible, but unlikely";
+            break;
+        case 6:
+            message = "Nah dog";
+            break;
+        case 7:
+            message = "It is certain";
+            break;
+        default:
+            message = "Unexpected outcome";
+            break;
+    }
+
+    // Insert the message into the resultMessage span
+    document.getElementById("resultMessage").innerText = message;
+});

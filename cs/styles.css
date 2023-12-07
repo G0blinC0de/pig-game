@@ -3,13 +3,14 @@
 
 }
 
+
 .hidden {
     display: none;
 }
 
-
-
-
+#playersBox {
+    margin-left: 25%;
+}
 
 .boxshadow {
     box-shadow: 25px 25px 15px 10px rgba(0, 0, 0, 0.5);
@@ -22,7 +23,9 @@
     justify-content: center;
     display: flex;
     flex-direction: column;
+    background-color: black;
 }
+
 
 
 .container {
@@ -30,4 +33,27 @@
     margin: 10px 0;
     text-align: center;
     padding: 10px;
+    display: inline-block;
+}
+
+.wizWords {
+    font-size: 40px;
+    font-style: italic;
+    padding: 10px;
+}
+
+.wizBox {
+    width: 100%;
+    margin: 10px 0;
+    text-align: center;
+    padding: 10px;
+    display: inline-block;
+    background-image: url('/images/Wizard.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+#resultMessage {
+    font-size: 60px;
 }
