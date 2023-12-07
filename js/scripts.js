@@ -1,4 +1,52 @@
+function Game(activePlayer, score) {
+    this.score = score;
+    this.activePlayer = activePlayer;
+    this.turnTotal = [];
+    this.currentdie = [];
+}
 
+const player1 = new Game("Player 1", 0)
+const player2 = new Game("Player 2", 0)
+const btnRoll1 = document.getElementById('btnRoll1');
+const btnRoll2 = document.getElementById('btnRoll2');
+const btnHold1 = document.getElementById('btnHold1');
+const btnHold2 = document.getElementById('btnHold2');
+const btnDiceReset = document.getElementById('btnDiceReset');
+
+
+Game.prototype.turnSwap = function () {
+    if (activePlayer === player1) {
+        btnHold1.classList.add('disable');
+        btnRoll1.classList.add('disable');
+        btnHold1.classList.remove('enable');
+        btnRoll1.classList.remove('enable');
+
+        btnHold2.classList.remove('disable');
+        btnRoll2.classList.remove('disable');
+        btnHold2.classList.add('enable');
+        btnRoll2.classList.add('enable');
+    } else if (activePlayer === player2) {
+        btnHold2.classList.add('disable');
+        btnRoll2.classList.add('disable');
+        btnHold2.classList.remove('enable');
+        btnRoll2.classList.remove('enable');
+
+        btnHold1.classList.remove('disable');
+        btnRoll1.classList.remove('disable');
+        btnHold1.classList.add('enable');
+        btnRoll1.classList.add('enable');
+    }
+};
+
+
+btnRoll.addEventListener('click', function () {
+    const currentdie = Math.trunc(Math.random() * 6) + 1;
+    if (currentdie !== 1) {
+        this.turnTotal += this.currentdie;
+    } else {
+        this.turnSwap();
+    }
+});
 
 
 // Coin Flip??
