@@ -5,3 +5,51 @@
 .hidden {
     display: none;
 }
+
+#player1 {
+    float: left;
+    margin-left: 15%;
+    margin-bottom: 2%;
+}
+
+#player2 {
+    float: right;
+    margin-right: 35%;
+}
+
+#diceImage {
+    float: center;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+#newGameButton {
+    float: center;
+    margin-bottom: 2%;
+    font-size: 40px;
+    margin-left: 45%;
+    margin-right: 45%;
+}
+
+
+.boxshadow {
+    box-shadow: 25px 25px 15px 10px rgba(0, 0, 0, 0.5);
+    text-align: left;
+    border-radius: 50px;
+    padding: 25px;
+    margin: 25x;
+    font-size: 75px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.button {
+    float: center;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-left: 30%;
+    margin-right: 30%;
+    font-size: 30px;
+}
