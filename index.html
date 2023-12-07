@@ -9,31 +9,33 @@
 <body>
 
     <h1 class="boxshadow">Pig Dice Game</h1>
-
+    <div class="container">
+        <p>Coded by: Red Williams & Amy Hruska</p>
+    </div>
     <div class="container"><button id="newGameButton">New Game</button>
     </div>
-    <img id='diceImage' src="images/dice-6.png" alt="Dice!">
-
-    <div id="player1">
+    <div class="container">
+        <img id='diceImage' src="images/dice-6.png" alt="Dice!">
+    </div>
+    <div class="container">
         <h2 id="p1Header">Player 1</h2>
         <p>Turn Total: <span id="current--0">0</span></p>
         <p>Game Total: <span id="total--0">0</span></p>
-    </div>
 
-    <div id="player2">
+
         <h2 id="p2Header">Player 2</h2>
         <p>Turn Total: <span id="current--1">0</span></p>
         <p>Game Total: <span id="total--1">0</span></p>
     </div>
-    <div class="">
+
+    <div class="container">
         <button disabled="true" id="rollButton" class="button">Roll Dice</button>
         <button disabled="true" id="holdButton" class="button">Hold</button>
     </div>
-    <p>Coded by: Red Williams & Amy Hruska</p>
 
 
-    <div id="coinToss">
-        <h1 class="boxshadow">Coin Toss</h1>
+    <h1 class="boxshadow">Coin Toss</h1>
+    <div class="container" id="coinToss">
         <button type="button" id="btnCoin" class="button">Coin Toss</button>
         <button type="button" id="btnCoinReset" class="button">Reset</button>
         <p>You got: <span id="result"></span></p>
@@ -41,10 +43,8 @@
         <img src="images/coin-tails.png" alt="Tails" id="Tails" class="hidden" />
         <h3>Heads Vs Tails</h3>
         <p>Heads: <span id="totalHeads">0</span></p>
-        Tails: <span id="totalTails">0</span>
-        </p>
+        <p>Tails: <span id="totalTails">0</span></p>
     </div>
-    <p>Coded by: Red Williams & Amy Hruska</p>
     <script src="js/scripts.js"></script>
 </body>
 
