@@ -70,7 +70,7 @@
     text-align: center;
     padding: 10px;
     display: inline-block;
-    background-image: url('/images/Wizard.jpg');
+    background-image: url('../images/Wizard.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
